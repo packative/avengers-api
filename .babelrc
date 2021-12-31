@@ -1,0 +1,29 @@
+{
+  "presets": ["env"],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    ["transform-regenerator", { "async": false }],
+    [
+      "babel-plugin-transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true,
+        "moduleName": "babel-runtime"
+      }
+    ],
+    [
+      "babel-plugin-transform-builtin-extend",
+      {
+        "globals": ["Error"]
+      }
+    ]
+  ],
+  "env": {
+    "production": {
+      "presets": ["latest", "minify"]
+    }
+  }
+}
