@@ -26,7 +26,3 @@
 
 # Package Manager
 - Please use ```yarn```
-
-# Screenshots 🌄
-![screenshot-light](docs/lightmode.jpg)
-![screenshot-dark](docs/darkmode.jpg)
