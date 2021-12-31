@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/nodemon --watch src --exec babel-node -- src/server"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Dominik Danninger <dominik@packative.com",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.2",
     "http-errors": "^2.0.0"
