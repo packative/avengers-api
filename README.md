@@ -16,6 +16,8 @@
 - Call the API:
   - You can either work with an existing package (e.g npm package: marvel) 
   - Or use axio/fetch/fetchFrom etc...
+- Filter Series from the Marvel API for "avengers"
+- Get all characters related to the avenger series and return them as json over the GET route /avengers 
 
 # What's Already Been Done 🏁
 - App with express & routes are setup
