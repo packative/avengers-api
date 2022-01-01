@@ -1,4 +1,5 @@
 import express from 'express';
+import md5 from 'md5';
 
 const router = express.Router();
 
