@@ -7,6 +7,11 @@
 var app = require('./app');
 var http = require('http');
 
+//Load Environment Variables
+require('dotenv').config();
+const PUBLIC_KEY = process.env.PUBLIC_KEY;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+
 /**
  * Get port from environment and store in Express.
  */

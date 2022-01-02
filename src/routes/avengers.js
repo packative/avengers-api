@@ -1,13 +1,7 @@
 import express from 'express';
 import md5 from 'md5';
 import axios from 'axios';
-import MarvelAPI from '../utils/uri';
-import dotenv from 'dotenv/config';
-
 const router = express.Router();
-//const marvelAPI = new MarvelAPI();
-const PUBLIC_KEY = process.env.PUBLIC_KEY;
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 /* GET /avengers listing. */
 router.get('/', async function (req, res, next) {
@@ -18,15 +12,6 @@ router.get('/', async function (req, res, next) {
   const ts = Date.now();
   const strForDigest = ts + PRIVATE_KEY + PUBLIC_KEY;
   const hash = md5(strForDigest);
-  // const targetURI = marvelAPI.makeURI(
-  //   'series',
-  //   'title',
-  //   'avengers',
-  //   ts,
-  //   PUBLIC_KEY,
-  //   hash
-  // );
-
   //axios test;
   try {
     const res = await axios.get('/series', {
