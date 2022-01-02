@@ -10,6 +10,7 @@
   "author": "Dominik Danninger <dominik@packative.com",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.24.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "http-errors": "^2.0.0",

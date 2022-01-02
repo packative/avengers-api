@@ -1,12 +1,33 @@
 import express from 'express';
 import md5 from 'md5';
+import axios from 'axios';
+import MarvelAPI from '../utils/uri';
 
 const router = express.Router();
+const marvelAPI = new MarvelAPI();
+
+const PUBLIC_KEY = process.env.PUBLIC_KEY;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 /* GET /avengers listing. */
 router.get('/', function (req, res, next) {
   // API Docs: https://developer.marvel.com/docs
   // create some method / class or whatever to get the data
+
+  //Get timestamp
+  const ts = Date.now();
+  const strForDigest = ts + PUBLIC_KEY + PRIVATE_KEY;
+  const hash = md5(strForDigest);
+  const targetURI = marvelAPI.makeURI(
+    'series',
+    'title',
+    'avengers',
+    ts,
+    PUBLIC_KEY,
+    hash
+  );
+  //test;
+  console.log(targetURI);
 
   // First get all the series from https://gateway.marvel.com:443/v1/public/series?title=avengers&apikey=ABC
 
