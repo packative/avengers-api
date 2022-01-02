@@ -2,12 +2,16 @@ import express from 'express';
 import md5 from 'md5';
 import axios from 'axios';
 import MarvelAPI from '../utils/uri';
+import dotenv from 'dotenv/config';
 
 const router = express.Router();
 const marvelAPI = new MarvelAPI();
 
 const PUBLIC_KEY = process.env.PUBLIC_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
+
+console.log(PUBLIC_KEY);
+console.log(PRIVATE_KEY);
 
 /* GET /avengers listing. */
 router.get('/', function (req, res, next) {
