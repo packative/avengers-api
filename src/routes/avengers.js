@@ -5,34 +5,47 @@ import MarvelAPI from '../utils/uri';
 import dotenv from 'dotenv/config';
 
 const router = express.Router();
-const marvelAPI = new MarvelAPI();
-
+//const marvelAPI = new MarvelAPI();
 const PUBLIC_KEY = process.env.PUBLIC_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
-console.log(PUBLIC_KEY);
-console.log(PRIVATE_KEY);
-
 /* GET /avengers listing. */
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
   // API Docs: https://developer.marvel.com/docs
   // create some method / class or whatever to get the data
 
   //Get timestamp
   const ts = Date.now();
-  const strForDigest = ts + PUBLIC_KEY + PRIVATE_KEY;
+  const strForDigest = ts + PRIVATE_KEY + PUBLIC_KEY;
   const hash = md5(strForDigest);
-  const targetURI = marvelAPI.makeURI(
-    'series',
-    'title',
-    'avengers',
-    ts,
-    PUBLIC_KEY,
-    hash
-  );
-  //test;
-  console.log(targetURI);
+  // const targetURI = marvelAPI.makeURI(
+  //   'series',
+  //   'title',
+  //   'avengers',
+  //   ts,
+  //   PUBLIC_KEY,
+  //   hash
+  // );
 
+  //axios test;
+  try {
+    const res = await axios.get('/series', {
+      baseURL: 'https://gateway.marvel.com:443/v1/public/',
+      params: {
+        title: 'avengers',
+        ts: ts,
+        apikey: PUBLIC_KEY,
+        hash: hash,
+      },
+      responseType: 'json',
+    });
+
+    //all good.
+    const json = res.data;
+    console.log(json);
+  } catch (err) {
+    console.log(err);
+  }
   // First get all the series from https://gateway.marvel.com:443/v1/public/series?title=avengers&apikey=ABC
 
   // Pass a comma seperated list of series ids to the character api:
