@@ -1,6 +1,8 @@
 /**
  * Super Awsome Fetch for Marvel API
  */
+import md5 from 'md5';
+import axios from 'axios';
 
 async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
   /**
