@@ -13,8 +13,6 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
    * MARVEL_API_MAX_LIMIT -> limit
    *
    */
-  console.log(`public key : ${pubKey}`);
-  console.log(`private key : ${priKey}`);
 
   //Get timestamp
   const ts = Date.now();
@@ -36,6 +34,7 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
         ts: ts,
         apikey: pubKey,
         hash: hash,
+        limit: limit,
       },
       responseType: 'json',
     });
@@ -76,6 +75,9 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
 
       let fetchCnt = total / limit;
       if (total % limit != 0) fetchCnt++;
+
+      const paramArr2 = []; // for map iteration only for phase2 stage.
+
       for (let x = 1; x < fetchCnt; x++) {
         //it starts with 1.
         const param = {
@@ -84,11 +86,12 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
           limit: limit,
           // fetchStatus: FETCH_INIT, // Not sure if it is needed on this stage...
         };
-        paramArr.push(param);
+        paramArr.push(param); // purpose of audit of param.
+        paramArr2.push(param); // purpose of map method.
       }
 
       //Prep Promise Arry.
-      const promises = paramArr.map(async (ele) => {
+      const promises = paramArr2.map(async (ele) => {
         const ts = Date.now();
         const strForDigest = ts + priKey + pubKey;
         const hash = md5(strForDigest);
@@ -108,13 +111,14 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
         return res;
       });
 
-      //process promise array and return res of axios.
-      const ph2ResArr = await Promise.all(promises);
+      //process promise array and return res of axios. notice only phase2 response.
+      const resArr2 = await Promise.all(promises);
       //notice resultArr is multi dimentional matirix
-      const resultArr = ph2ResArr.map(function (ele) {
+      const resultArr = resArr2.map(function (ele) {
         return ele.data.data.results;
       });
 
+      //Combinate phase1 and phase2 results.
       resultArr.forEach((x) => {
         Array.prototype.push.apply(resArr, x);
       });
