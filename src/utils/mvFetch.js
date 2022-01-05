@@ -13,6 +13,8 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
    * MARVEL_API_MAX_LIMIT -> limit
    *
    */
+  console.log(`public key : ${pubKey}`);
+  console.log(`private key : ${priKey}`);
 
   //Get timestamp
   const ts = Date.now();
@@ -32,7 +34,7 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
       params: {
         ...pObject,
         ts: ts,
-        apiKey: pubKey,
+        apikey: pubKey,
         hash: hash,
       },
       responseType: 'json',
@@ -120,7 +122,7 @@ async function mvFetch({ pubKey, priKey, route, limit, pObject } = options) {
       return resArr;
     }
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data);
   }
 }
 
